@@ -4,15 +4,21 @@ const mongoose = require("mongoose");
 const restaurantsSchema = new mongoose.Schema({
     RestaurantName: {
         type: String,
-        required: true,
-        unique: true
+        // required: true,
+        unique: true,
+        default: "Home Kitchen"
     },
     password: {
         type: Number,
-        required: true
+        // required: true,
+        default: 12345
     },
     Dishes: [
         {
+            Image: {
+                type: Buffer,
+                required: true
+            },
             Title:{
                 type: String,
                 required: true,
@@ -26,16 +32,12 @@ const restaurantsSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
-            Image: {
-                type: Buffer,
-                required: true
-            },
+            
             Category: {
                 enum: {
                     values: ['fastfood', 'desi', 'desert', 'beverages'],
-                    message: '{VALUE} is not supported'
-                  },
-                  lowercase: true
+                    
+                  }
             }
         }
     ]

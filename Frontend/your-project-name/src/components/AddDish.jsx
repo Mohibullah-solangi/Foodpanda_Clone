@@ -3,7 +3,7 @@ import React from "react";
 const AddDish = () => {
   return (
     <>
-      <main className="h-screen flex justify-center items-center">
+      <main className="flex justify-center items-center">
         <form
           action="/AddNewDish"
           method="POST"
@@ -17,11 +17,11 @@ const AddDish = () => {
                 Items sell better when they have a Photo (image size should not
                 be more than 1Mb and file format should be jpg or jpeg)
               </p>
-              <label htmlFor="image" className="text-1xl text-gray-600 pb-4">
+              <label htmlFor="Image" className="text-1xl text-gray-600 pb-4">
                 Upload Dish Photo
                 <input
                   type="file"
-                  name="image"
+                  name="Image"
                   id="image"
                   accept="image/jpg, image/jpeg"
                   required
@@ -48,14 +48,14 @@ const AddDish = () => {
             <div className="p-4">
               <p className="text-1xl text-gray-300 pt-3">Item Description *</p>
               <input
-                type="text"
-                name="Desc"
+                type="textarea"
+                name="Description"
                 required
                 className="text-blue-500 p-4"
                 placeholder=" Enter Breif item Description "
               />{" "}
               <br />
-              <label htmlFor="Desc" className="text-1xl text-gray-600 p-8">
+              <label htmlFor="Description" className="text-1xl text-gray-600 p-8">
                 Example: 80oz Meat patty with tomato and onion rings ..
               </label>
             </div>
@@ -78,10 +78,10 @@ const AddDish = () => {
             <div className="p-4">
               <p className="text-1xl text-gray-300 p-3">Item Category *</p>
 
-              <label htmlFor="category" className="text-1xl text-gray-400 p-8 mt-4">
+              <label htmlFor="Category" className="text-1xl text-gray-400 p-8 mt-4">
                 Select one that best describe the item.
               </label>
-              <select id="category" name="category" className="text-1xl text-gray-600 p-2 mt-4">
+              <select id="category" name="Category" className="text-1xl text-gray-600 p-2 mt-4">
                 <option value="fastfood">FastFood</option>
                 <option value="desi">Desi</option>
                 <option value="desert">Desert</option>
