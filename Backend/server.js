@@ -4,7 +4,7 @@ const app = express();
 const db = require("./config/dbConn")
 const mongoose = require("mongoose")
 const path = require("path")
-const PORT = process.env.PORT || 5173;
+const PORT = process.env.PORT || 3500;
 const router = require("./routes/route")
 const cors = require("cors")
 const corsOptions = require("./config/corsOptions")
@@ -14,9 +14,10 @@ const corsOptions = require("./config/corsOptions")
 //     res.send("Welcome to backend")
 // })
 db()
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(router)
-app.use(cors(corsOptions))
+
 
 app.use(express.static(path.join(__dirname, "./views")))
 

@@ -5,7 +5,7 @@ const restaurantsSchema = new mongoose.Schema({
     RestaurantName: {
         type: String,
         // required: true,
-        unique: true,
+     
         default: "Home Kitchen"
     },
     password: {
@@ -16,30 +16,29 @@ const restaurantsSchema = new mongoose.Schema({
     Dishes: [
         {
             Image: {
-                type: Buffer,
-                required: true
+                type: String,
+               default: "image"
             },
             Title:{
                 type: String,
-                required: true,
-                unique: true
+                
             },
             Description: {
                 type: String,
-                required: true
+                
             },
             Price: {
                 type: Number,
-                required: true
+                
             },
             
             Category: {
-                enum: {
-                    values: ['fastfood', 'desi', 'desert', 'beverages'],
+                type: String,
+                enum: ['fastfood', 'desi', 'desert', 'beverages'],
+                default: 'fastfood'
                     
-                  }
-            }
-        }
+                  
+        }}
     ]
 
 })

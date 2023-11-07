@@ -1,12 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 
 const AddDish = () => {
+
+
+  // Defining initail state of input text fields
+
+  const [newDish , setnewDish] = useState({
+    Title:"",
+    Description:"",
+    Price:"",
+    Category:"fastfood"
+   
+  })
+   // Defining initail state of input image field
+
+  const [image, setImage] = useState()
+
+  // Handle form submition
+
+  const Handlesubmit = (e)=>{
+        e.preventDefault(); 
+
+console.log(newDish)
+console.log(image)
+
+const formdata = new FormData();
+formdata.append("Image", image)
+for(let key in newDish){
+  formdata.append(key, newDish[key])
+}
+        
+  // Add New dish to backend 
+  console.log(Array.from(formdata))
+
+    fetch("http://127.0.0.1:3500/AddNewDish", {
+     method: "POST", 
+     crossDomain: true,
+     mode: "cors",
+  
+     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+     body: 
+      formdata
+       
+   }) .then(response => response.json())
+   .then((data) => {console.log(data)});
+   
+  }
+
+   // Handle change in image input field value
+   const HandleChangeimg = (e) => {
+   
+    console.log(e.target.files[0])
+
+      setImage(e.target.files[0])
+   console.log(image)
+  }
+   
+
+  // Handle change in text input field value
+
+  const HandleChange = (e) => {
+    console.log(e.target.value)
+  
+      setnewDish({...newDish,
+        [e.target.name]: e.target.value
+      
+      })
+
+    console.log(newDish)
+   
+  }
+
+
+
+
+
+
   return (
     <>
       <main className="flex justify-center items-center">
         <form
-          action="/AddNewDish"
-          method="POST"
+         onSubmit={Handlesubmit}
           className="bg-white rounded-lg w-1/2 font-sans"
         >
           <div className="p-20">
@@ -26,6 +101,8 @@ const AddDish = () => {
                   accept="image/jpg, image/jpeg"
                   required
                   className="text-blue-500 pt-4 "
+        
+                  onChange={HandleChangeimg}
                 />
                 <span className="text-1xl text-gray-400">or drag it in</span>
               </label>
@@ -39,6 +116,8 @@ const AddDish = () => {
                 required
                 className="text-blue-500 p-4"
                 placeholder=" Enter Item Title "
+                value={newDish.Title}
+                onChange={HandleChange}
               />{" "}
               <br />
               <label htmlFor="Title" className="text-1xl text-gray-600 p-8">
@@ -53,6 +132,8 @@ const AddDish = () => {
                 required
                 className="text-blue-500 p-4"
                 placeholder=" Enter Breif item Description "
+                value={newDish.Description}
+                onChange={HandleChange}
               />{" "}
               <br />
               <label htmlFor="Description" className="text-1xl text-gray-600 p-8">
@@ -68,6 +149,8 @@ const AddDish = () => {
                 required
                 className="text-blue-500 p-4"
                 placeholder=" Enter Item price in PKR "
+                value={newDish.Price}
+                onChange={HandleChange}
               />{" "}
               <br />
               <label htmlFor="Price" className="text-1xl text-gray-600 p-8">
@@ -81,7 +164,7 @@ const AddDish = () => {
               <label htmlFor="Category" className="text-1xl text-gray-400 p-8 mt-4">
                 Select one that best describe the item.
               </label>
-              <select id="category" name="Category" className="text-1xl text-gray-600 p-2 mt-4">
+              <select id="category" name="Category" onChange={HandleChange}  value={newDish.Category} className="text-1xl text-gray-600 p-2 mt-4">
                 <option value="fastfood">FastFood</option>
                 <option value="desi">Desi</option>
                 <option value="desert">Desert</option>

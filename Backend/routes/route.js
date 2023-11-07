@@ -1,10 +1,29 @@
 const express = require("express")
 const router = express.Router();
 const Restaurants = require("../models/Restaurants")
+const cors = require("cors")
+const corsOptions = require("../config/corsOptions")
+const multer  = require('multer')
 
 
+// storaging image file using multer
 
-router.get("/AddNewDish", async(req, res)=>{
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/")
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now()
+    cb(null, uniqueSuffix + file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
+
+// Routes for restaurant menu and details
+
+router.get("/AddNewDish", cors(corsOptions), async(req, res)=>{
     console.log("router post path")
    
          try{
@@ -14,7 +33,7 @@ router.get("/AddNewDish", async(req, res)=>{
                 return res.status(404).send()
             }
             else{
-                res.status(201).send(ResMenu)
+                res.status(200).send(ResMenu)
                 console.log(ResMenu)
             }
             
@@ -27,10 +46,12 @@ router.get("/AddNewDish", async(req, res)=>{
     
 )
 
-router.post("/AddNewDish", async(req, res)=>{
+router.post("/AddNewDish", upload.single("Image"), async(req, res)=>{
     console.log("router post path")
-   
+    console.log(req.body)
+   const imageeName = req.file.filename
          try{
+          
             const Menu = new Restaurants({
                 Dishes: req.body
             })
@@ -55,7 +76,7 @@ router.patch("/AddNewDish/:id", async(req, res)=>{
             const UpdateMenu = await Restaurants.findByIdAndUpdate(_id, req.body, {new: true})
             console.log(req.body)
 
-            
+                 
                 res.status(200).send(UpdateMenu)
                 console.log(UpdateMenu)
             
