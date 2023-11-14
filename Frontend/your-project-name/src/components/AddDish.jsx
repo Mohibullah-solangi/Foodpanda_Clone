@@ -17,6 +17,10 @@ const AddDish = () => {
 
   const [image, setImage] = useState()
 
+
+
+
+
   // Handle form submition
 
   const Handlesubmit = (e)=>{

@@ -13,7 +13,9 @@ const restaurantsSchema = new mongoose.Schema({
         // required: true,
         default: 12345
     },
-    Dishes: [
+    Dishes: 
+    
+        [
         {
             Image: {
                 type: String,
@@ -37,9 +39,10 @@ const restaurantsSchema = new mongoose.Schema({
                 enum: ['fastfood', 'desi', 'desert', 'beverages'],
                 default: 'fastfood'
                     
-                  
-        }}
-    ]
+                 }
+ } ]
+                
+    
 
 })
 
