@@ -18,8 +18,9 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(router)
 
+app.use("/images", express.static(path.join(__dirname, "./images")))
+app.use("/", express.static(path.join(__dirname, "./views")))
 
-app.use(express.static(path.join(__dirname, "./views")))
 
 app.all("*", (req, res)=>{
     

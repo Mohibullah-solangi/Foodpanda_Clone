@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Restaurants = require("../models/Restaurants");
-const cors = require("cors");
-const corsOptions = require("../config/corsOptions");
 const multer = require("multer");
 
 
@@ -10,7 +8,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../Frontend/your-project-name/src/images");
+    cb(null, "./images");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();

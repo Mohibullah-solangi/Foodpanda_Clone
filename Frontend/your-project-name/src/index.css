@@ -5,6 +5,12 @@
 @tailwind utilities;
 
 
+@layer components{
+  .cards{
+    @apply bg-white text-gray-700 w-72 min-h-[10rem] shadow-lg rounded-md overflow-hidden
+  } 
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
