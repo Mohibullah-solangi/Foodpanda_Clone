@@ -1,47 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from "react-redux";
+import { useState } from 'react';
 
+const ProductCard = () => {
+  const [dishes, setDishes] = useState([]);
+  const Restraurant = useSelector((state)=>{
+    state.Restraurant.Restraurant
+  })
+console.log(!Restraurant? "" : Restraurant.map((elem)=>{
+     setDishes(elem.Dishes)
+}))
 
+console.log(dishes)
 
-const ProductCard = (props) => {
-  
-
-    console.log(props.image)
-
-    const [image, setImage] = useState(null)
-
-    const fetchdata = async () => {
-  
-      // fetching data
-      let response = await fetch(`http://127.0.0.1:3500/images/${encodeURI(props.image)}`, {
-        method: "GET",
-        crossDomain: true,
-        mode: "cors",
-  
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      });
-      
-      console.log(response)
-      setImage(response.url)
-    };
-    
-  useEffect(() => {
-    fetchdata();
-  }, []);
-
+  const AllDishes = !Restraurant? "": Restraurant.map((elem) => {
+    const {_id, Title, Description, Image, Price, Category} = elem;
+    return (
+      <div className="cards" key={_id}>
+      <img src={Image} alt="" />
+      <h5>{Title}</h5>
+        <p>{Description}...</p>
+        <p >
+              <small>
+                {Price}
+              </small>
+              {Category}
+            </p>
+      </div>
+    );
+  })
   
   return (
     <>
-      <div className="cards">
-      <img src={image} alt="" />
-      <h5>{props.title}</h5>
-        <p>{props.description}...</p>
-        <p >
-              <small>
-                {props.price}
-              </small>
-              {props.category}
-            </p>
-      </div>
+      {AllDishes}
     </>
   )
 }

@@ -8,20 +8,30 @@ const PORT = process.env.PORT || 3500;
 const router = require("./routes/route")
 const cors = require("cors")
 const corsOptions = require("./config/corsOptions")
+const { logger} = require('./middleware/logEvent')
 
 
-// app.get("/", (req, res)=>{
-//     res.send("Welcome to backend")
-// })
+// connecting mongoDB server
 db()
+
+// Collecting data logs
+app.use(logger)
+
+// Cross Origin Resource Sharing 
 app.use(cors(corsOptions))
+
+// Data parsing
 app.use(express.json())
+
+// Routes for Endpoints
 app.use(router)
 
+
+// Static file servings
 app.use("/images", express.static(path.join(__dirname, "./images")))
 app.use("/", express.static(path.join(__dirname, "./views")))
 
-
+// Handling Error for incorrect path
 app.all("*", (req, res)=>{
     
     res.status(404).sendFile(path.join(__dirname, "./views", "404.html"));
@@ -30,7 +40,7 @@ app.all("*", (req, res)=>{
 
 
 
-
+// Mongoose connect checking
 mongoose.connection.once("open", ()=>{
 
     console.log("connected mongoose")

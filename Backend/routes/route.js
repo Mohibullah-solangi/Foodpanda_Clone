@@ -49,7 +49,7 @@ router.post("/AddNewDish", upload.single("Image"), async (req, res) => {
   console.log("initial");
 
   const imageeName = req.file.filename;
-  req.body.Image = imageeName;
+  req.body.Image = `http://127.0.0.1:3500/images/${imageeName}`;
   console.log("Final");
   console.log(req.body);
   console.log(req.params.id)
