@@ -1,9 +1,10 @@
 import "./App.css";
-import AddDish from "./components/AddDish";
+import AddDish from "./components/Restraurant/AddDish";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import MainPage from "./components/MainPage";
-import Header from "./components/Header";
+import Restraurant from "./components/Customer/Restraurant";
+import Header from "./components/Customer/Header";
+import Login from "./components/Restraurant/Login";
 
 const App = () => {
   return (
@@ -11,10 +12,10 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/add-new-dish" element={<AddDish />} />
-          <Route path="/" element={<MainPage />} />
-          {/* <Route path='/' element={<SignIn/>}  /> */}
-          {/* <Route path='/signup' element={<Signup/>}  /> */}
+          <Route exact path="/add-new-dish" element={<AddDish />} />
+          <Route exact path="/" element={<Restraurant />} />
+          <Route exact path="/partner/login" element={<Login />} />
+         
         </Routes>
       </BrowserRouter>
     </>

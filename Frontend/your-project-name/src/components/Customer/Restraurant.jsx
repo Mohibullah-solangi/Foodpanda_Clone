@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner";
-import ProductCard from "./ProductCard";
-import { useDispatch, useSelector } from "react-redux";
-import {fetchRestraurant} from '../redux/Features/Dishes/RestrauarantSlice'
+import RestraurantCard from "./RestraurantCard";
+import { useDispatch, useSelector} from "react-redux";
+import {fetchRestraurant} from '../../redux/Features/Restraurant/RestrauarantSlice'
 
 const MainPage = () => {
   const [loader, setLoader] = useState(false);
-  // const [dishes, setDishes] = useState([]);
+
 
   const dispatch =useDispatch();
  
-  
+  const state = useSelector((state)=>{
+    state.Restraurant
+  })
+ console.log(state)
 
   //  Calling data from backend on render
 
@@ -23,7 +26,7 @@ const MainPage = () => {
       {loader && <Spinner />}
       <div className="flex flex-wrap gap-2">
       
-           <ProductCard/>
+           <RestraurantCard/>
     
       </div>
     </>
