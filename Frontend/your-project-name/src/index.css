@@ -1,50 +1,40 @@
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-@layer components{
-  .cards{
+
+@layer components {
+  .cards {
     @apply bg-white text-gray-700 w-72 min-h-[10rem] shadow-lg rounded-md overflow-hidden
-  } 
+  }
 }
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
 
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
-}
+
 
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(20, 184, 166);
+
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+
+}
+
+h3 {
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-family: 'Figtree', sans-serif;
+ 
 }
 
 button {
@@ -58,23 +48,25 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-input[type=text]:focus{
+.Input_Dishes:focus {
   outline: none;
-  
+
 }
 
-input[type=text]{
-border-bottom: 2px solid gray;
-width: 60%;
-  
+.Input_Dishes {
+  border-bottom: 2px solid gray;
+  width: 60%;
+
 }
 
 input[type=file]::file-selector-button {
@@ -95,12 +87,9 @@ input[type=file]::file-selector-button {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
+
+  
   button {
     background-color: #f9f9f9;
   }
 }
-
-

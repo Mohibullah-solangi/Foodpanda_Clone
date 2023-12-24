@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 
 const AddDish = () => {
@@ -118,7 +118,7 @@ for(let key in newDish){
                 type="text"
                 name="Title"
                 required
-                className="text-blue-500 p-4"
+                className="text-blue-500 p-4 Input_Dishes"
                 placeholder=" Enter Item Title "
                 value={newDish.Title}
                 onChange={HandleChange}
@@ -134,7 +134,7 @@ for(let key in newDish){
                 type="textarea"
                 name="Description"
                 required
-                className="text-blue-500 p-4"
+                className="text-blue-500 p-4 Input_Dishes"
                 placeholder=" Enter Breif item Description "
                 value={newDish.Description}
                 onChange={HandleChange}
@@ -151,7 +151,7 @@ for(let key in newDish){
                 type="text"
                 name="Price"
                 required
-                className="text-blue-500 p-4"
+                className="text-blue-500 p-4 Input_Dishes"
                 placeholder=" Enter Item price in PKR "
                 value={newDish.Price}
                 onChange={HandleChange}

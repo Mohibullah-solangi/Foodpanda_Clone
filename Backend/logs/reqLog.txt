@@ -502,3 +502,9 @@
 20231201	18:06:44	a6933239-b5cc-4ad7-922c-9c94f7653175	GET	undefined	/AddNewDish
 20231201	18:14:00	d0da0fbe-4a14-4bb6-80fe-d36f83843f46	GET	undefined	/AddNewDish
 20231201	18:14:00	0de8253e-abe9-42bb-9ee1-7072aff31371	GET	undefined	/AddNewDish
+20231223	15:01:08	4494c606-a882-4500-8bc8-eac8054df508	GET	undefined	/AddNewDish
+20231223	15:01:08	ea55fe7a-8c77-4327-894c-301845d43c33	GET	undefined	/AddNewDish
+20231223	15:40:28	7919fa3e-7534-4192-a1fc-abc3b9247eb7	GET	undefined	/AddNewDish
+20231223	15:40:28	cc65d4ab-3baa-4132-b55d-58a07391eea6	GET	undefined	/AddNewDish
+20231225	01:12:41	4ad3fef7-48cc-47ce-b0e3-d0e12f9059d9	GET	undefined	/AddNewDish
+20231225	01:12:41	6ef32911-0eef-4f18-b4ab-7a14b1ceab6f	GET	undefined	/AddNewDish
