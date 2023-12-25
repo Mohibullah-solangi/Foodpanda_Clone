@@ -1,14 +1,13 @@
 import React from 'react'
-import Modal from './Login_Modal'
+import Reg_Modal from './Reg_Modal'
 
-const Login = () => {
+const Registration = () => {
   return (
-    <>
+    <div>
       <div className="fixed inset-0 bg-[url('./assets/pexels-photo-1640777.jpeg')] w-full"> </div>
-      <Modal/>
-     
-    </>
+      <Reg_Modal/>
+    </div>
   )
 }
 
-export default Login
+export default Registration

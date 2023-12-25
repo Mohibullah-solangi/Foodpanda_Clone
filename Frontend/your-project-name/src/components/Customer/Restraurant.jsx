@@ -24,7 +24,7 @@ const MainPage = () => {
   return (
     <>
       {loader && <Spinner />}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 w-[1390px] px-20">
       
            <RestraurantCard/>
     

@@ -12,7 +12,7 @@ const initialState = {
 export const fetchRestraurant= createAsyncThunk(
     'Restraurant/fetchRestraurant',
     async () => {
-     let response = await fetch("http://127.0.0.1:3500/AddNewDish", {
+     let response = await fetch("http://127.0.0.1:3500/Dishes", {
         method: "GET",
         crossDomain: true,
         mode: "cors",

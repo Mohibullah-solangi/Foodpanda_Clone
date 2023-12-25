@@ -38,7 +38,7 @@ for(let key in newDish){
   // Add New dish to backend 
   console.log(Array.from(formdata))
 
-    fetch("http://127.0.0.1:3500/AddNewDish", {
+    fetch("http://127.0.0.1:3500/Dishes", {
      method: "POST", 
      crossDomain: true,
      mode: "cors",

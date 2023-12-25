@@ -1,37 +1,30 @@
-import React from 'react'
+import React from "react";
 import { useSelector } from "react-redux";
 
+const RestaurantCard = () => {
+  const state = useSelector((state) => {
+    return state.Restraurant.Restraurant;
+  });
 
-const RestraurantCard = () => {
- 
-  const state = useSelector((state)=>{ return state.Restraurant.Restraurant})
+  console.log(state);
 
- console.log(state)
- 
- 
+  const AllRestaurant = !state
+    ? ""
+    : state.map((elem) => {
+        const { _id, RestaurantName, rating, Category, BannerImage } = elem;
+        return (
+          <div className="cards flex flex-col" key={_id}>
+            <img src={BannerImage} alt="Banner" />
+            <h3 className="text-base text-black font-bold pt-2">{RestaurantName} <small className="ml-64">
+                {rating} (0)
+              </small></h3>
+            
+            <p className="self-start pb-3 px-4 text-sm text-slate-600 font-medium">$ . {Category}</p>
+          </div>
+        );
+      });
 
-  const AllRestraurant = !state? "": state.map((elem) => {
-    const {_id, RestaurantName} = elem;
-    return (
-      <div className="cards" key={_id}>
-      {/* <img src={Image} alt="" /> */}
-      <h5>{RestaurantName}</h5>
-        {/* <p>{Description}...</p>
-        <p >
-              <small>
-                {Price}
-              </small>
-              {Category}
-            </p> */}
-      </div>
-    );
-  })
-  
-  return (
-    <>
-      {AllRestraurant}
-    </>
-  )
-}
+  return <>{AllRestaurant}</>;
+};
 
-export default RestraurantCard
+export default RestaurantCard;

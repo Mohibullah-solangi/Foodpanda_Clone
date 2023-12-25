@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const restraurant = express.Router();
 const Restaurants = require("../models/Restaurants");
 const multer = require("multer");
 
@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 
 // Routes for restaurant menu and details
 
-router.get("/AddNewDish", upload.single("Image"), async (req, res) => {
+restraurant.get("/Dishes", upload.single("Image"), async (req, res) => {
   console.log("router post path");
 
   try {
@@ -43,7 +43,7 @@ router.get("/AddNewDish", upload.single("Image"), async (req, res) => {
 
 // Posting new Dishes into mongo server
 
-router.post("/AddNewDish", upload.single("Image"), async (req, res) => {
+restraurant.post("/Dishes", upload.single("Image"), async (req, res) => {
   console.log("router post path");
   console.log(req.body);
   console.log("initial");
@@ -84,7 +84,7 @@ router.post("/AddNewDish", upload.single("Image"), async (req, res) => {
   }
 });
 
-router.patch("/AddNewDish/:id", async (req, res) => {
+restraurant.patch("/Dishes/:id", async (req, res) => {
   console.log("router patch path");
 
   try {
@@ -103,7 +103,7 @@ router.patch("/AddNewDish/:id", async (req, res) => {
   }
 });
 
-router.put("/AddNewDish/:id", async (req, res) => {
+restraurant.put("/Dishes/:id", async (req, res) => {
   console.log("router put path");
 
   try {
@@ -119,7 +119,7 @@ router.put("/AddNewDish/:id", async (req, res) => {
   }
 });
 
-router.delete("/AddNewDish", async (req, res) => {
+restraurant.delete("/Dishes", async (req, res) => {
   console.log("router post path");
 
   try {
@@ -136,4 +136,4 @@ router.delete("/AddNewDish", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = restraurant;

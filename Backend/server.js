@@ -5,7 +5,7 @@ const db = require("./config/dbConn")
 const mongoose = require("mongoose")
 const path = require("path")
 const PORT = process.env.PORT || 3500;
-const router = require("./routes/route")
+const restraurant = require("./routes/restraurant")
 const cors = require("cors")
 const corsOptions = require("./config/corsOptions")
 const { logger} = require('./middleware/logEvent')
@@ -24,7 +24,7 @@ app.use(cors(corsOptions))
 app.use(express.json())
 
 // Routes for Endpoints
-app.use(router)
+app.use(restraurant)
 
 
 // Static file servings
