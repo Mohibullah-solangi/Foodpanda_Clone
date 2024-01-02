@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const RestaurantCard = () => {
   const state = useSelector((state) => {
-    return state.Restraurant.Restraurant;
+    return state.Restaurant.Restaurant;
   });
 
   console.log(state);
@@ -15,7 +15,7 @@ const RestaurantCard = () => {
         return (
           <div className="cards flex flex-col" key={_id}>
             <img src={BannerImage} alt="Banner" />
-            <h3 className="text-base text-black font-bold pt-2">{RestaurantName} <small className="ml-64">
+            <h3 className="text-base text-black font-bold pt-2 flex justify-between px-4">{RestaurantName} <small>
                 {rating} (0)
               </small></h3>
             

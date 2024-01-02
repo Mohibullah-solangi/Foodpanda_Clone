@@ -4,21 +4,16 @@ const restaurantsSchema = new mongoose.Schema({
   Owner_Fname: {
     type: String,
     // required: true,
-
-    default: "Home Kitchen",
   },
   Owner_Lname: {
     type: String,
     // required: true,
-
-    default: "Home Kitchen",
   },
 
   RestaurantName: {
     type: String,
     // required: true,
-
-    default: "Home Kitchen",
+    unique: true
   },
   email: {
     type: String,
@@ -31,21 +26,20 @@ const restaurantsSchema = new mongoose.Schema({
       },
       message: "Please enter a valid email",
     },
-    required: [true, "Email required"],
+    // required: [true, "Email required"],
   },
   MobileNo: {
-    type: Number,
+    type: String,
     // required: true,
-    default: 333388888,
+    default: "333388888",
   },
   password: {
-    type: Number,
+    type: String,
     // required: true,
-    default: 12345,
+    default: "12345",
   },
   rating: {
     type: Number,
-    // required: true,
     default: 5,
   },
   Category: {
@@ -57,32 +51,15 @@ const restaurantsSchema = new mongoose.Schema({
     type: String,
     default: "http://127.0.0.1:3500/images/Rdefault.png",
   },
+  token: {
+    type: String
+},
 
-  Dishes: [
-    {
-      Image: {
-        type: String,
-        
-      },
-      Title: {
-        type: String,
-      },
-      Description: {
-        type: String,
-      },
-      Price: {
-        type: Number,
-      },
 
-      Category: {
-        type: String,
-        enum: ["fastfood", "desi", "desert", "beverages"],
-        default: "fastfood",
-      },
-    },
-  ],
+  Dishes: { type : Array , default : [] }
+  
 });
 
-const Restaurants = new mongoose.model("User", restaurantsSchema);
+const Restaurants = new mongoose.model("Restaurant", restaurantsSchema);
 
 module.exports = Restaurants;

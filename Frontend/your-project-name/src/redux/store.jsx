@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import RestraurantSlice from './Features/Restraurant/RestrauarantSlice';
+import RestaurantSlice from './Features/Restraurant/RestrauarantSlice';
 
 
 
 export const store = configureStore({
     reducer: {
-        Restraurant: RestraurantSlice,
+        Restaurant: RestaurantSlice,
 
     },
     devTools: true

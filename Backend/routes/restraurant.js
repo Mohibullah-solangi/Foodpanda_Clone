@@ -1,8 +1,9 @@
 const express = require("express");
-const restraurant = express.Router();
+const restaurant = express.Router();
 const Restaurants = require("../models/Restaurants");
+const bcrypt = require('bcrypt');
 const multer = require("multer");
-
+const VerifyJWT = require("../middleware/jwtAuth")
 
 // storaging image file using multer
 
@@ -20,13 +21,14 @@ const upload = multer({ storage: storage });
 
 
 
-// Routes for restaurant menu and details
+// Routes for restaurants
 
-restraurant.get("/Dishes", upload.single("Image"), async (req, res) => {
-  console.log("router post path");
 
+
+restaurant.get("/Restaurant", async (req, res) => {
+ 
   try {
-    const ResMenu = await Restaurants.find({ RestaurantName: 'Home Kitchen'}, {password:0});
+    const ResMenu = await Restaurants.find({}, {password:0});
 
     if (!ResMenu) {
       return res.status(404).send();
@@ -40,51 +42,77 @@ restraurant.get("/Dishes", upload.single("Image"), async (req, res) => {
 });
 
 
+restaurant.get("/Restaurant/:email", VerifyJWT, async (req, res) => {
+  console.log("single restuarant get request for Dashboard");
 
-// Posting new Dishes into mongo server
+  try {
+    const exist = await Restaurants.findOne({ email: decoded.email }, );
+    console.log(exist);
 
-restraurant.post("/Dishes", upload.single("Image"), async (req, res) => {
-  console.log("router post path");
+    if(!exist) return res.sendStatus(403)   //forbidden
+
+    else return res.status(200).send(exist)
+    
+} 
+catch (error) {
+    res.status(401).send(error)
+}
+});
+
+
+// Posting new Restuarant into mongo server
+
+restaurant.post("/Restaurant", upload.single("Image"), async (req, res) => {
+  console.log("POST Request");
   console.log(req.body);
-  console.log("initial");
-
-  const imageeName = req.file.filename;
-  req.body.Image = `http://127.0.0.1:3500/images/${imageeName}`;
-  console.log("Final");
-  console.log(req.body);
-  console.log(req.params.id)
+ 
   try {
 
-    // Create new Document for each restruarant
-    if (req.params.id) {
-      const Menu = new Restaurants({
-        Dishes: req.body
+    //  Checking if restuarant already exist in the data base or not
+    const RestExist = await Restaurants.find({ RestaurantName: req.body.RestaurantName}, {password:0});
+           console.log(RestExist)
+    // Create new Document for each restuarant
+    if (RestExist.length == 0) {
+
+      const {Owner_Fname, Owner_Lname, RestaurantName, email, MobileNo, password, Category} = req.body
+
+      // Hashing password before stroring to DB
+      try {
+        const Hashpassword = await bcrypt.hash(password, 10)
+        
+        // Storing Restuarant in DB after Hashing
+      const RestCreated = await new Restaurants({
+        Owner_Fname: Owner_Fname,
+        Owner_Lname: Owner_Lname,
+        RestaurantName: RestaurantName,
+        email: email,
+        MobileNo: MobileNo,
+        password: Hashpassword,
+        Category: Category
+
       });
-      const NewMenu = await Menu.save();
-      res.status(201).send(NewMenu);
-      console.log(NewMenu);
+      console.log(RestCreated)
+      const restcreated = await RestCreated.save();
+      res.status(201).json({'Success':`Congratulations ${restcreated.Owner_Fname}! Your Restuarant is Successfully Registered.`});
+      } 
+      catch (error) {
+        console.log(error)
+      }
+
     }
 
-    // Append Dishes to existing Document in the database for a restraurant
+    // Resturant Name already Exist
     else{
       
-      const Name = "Home Kitchen"
-      console.log("Else Hello")
-      const UpdateMenu = await Restaurants.updateOne({RestaurantName: Name}, {
-        $push: {Dishes: req.body}});
-        const NewMenu = await UpdateMenu.save();
-      console.log(req.body);
-  
-      res.status(200).send(NewMenu);
+      res.status(409).json({'Error':'Restuarant name is already taken. Try different name'});
       
-      console.log(NewMenu);
     }
   } catch (e) {
     res.status(400).send(e);
   }
 });
 
-restraurant.patch("/Dishes/:id", async (req, res) => {
+restaurant.patch("/Restaurant/:RestaurantName", async (req, res) => {
   console.log("router patch path");
 
   try {
@@ -103,12 +131,12 @@ restraurant.patch("/Dishes/:id", async (req, res) => {
   }
 });
 
-restraurant.put("/Dishes/:id", async (req, res) => {
+restaurant.put("/Restaurant/:RestaurantName", async (req, res) => {
   console.log("router put path");
 
   try {
     const _id = req.params.id;
-    const UpdateMenu = await Restaurants.findByIdAndUpdate(_id, req.body, {
+    const UpdateMenu = await Restaurants.findByIdAndReplace(_id, req.body, {
       new: true,
     });
 
@@ -119,7 +147,7 @@ restraurant.put("/Dishes/:id", async (req, res) => {
   }
 });
 
-restraurant.delete("/Dishes", async (req, res) => {
+restaurant.delete("/Restaurant/:RestaurantName", async (req, res) => {
   console.log("router post path");
 
   try {
@@ -136,4 +164,4 @@ restraurant.delete("/Dishes", async (req, res) => {
   }
 });
 
-module.exports = restraurant;
+module.exports = restaurant;

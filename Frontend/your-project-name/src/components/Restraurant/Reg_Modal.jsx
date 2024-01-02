@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../unnamed.png";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Reg_Modal = () => {
   // Handle form submition
@@ -14,41 +15,54 @@ const Reg_Modal = () => {
     email: "",
     MobileNo: "",
     password: "",
-    Category: ""
+    Category: "Fast Food",
   });
+
+  const [update, setUpdate] = useState({});
+  const navigate = useNavigate()
 
   const Handlesubmit = (e) => {
     e.preventDefault();
+    const rest = JSON.stringify(restaurant);
 
-    
-    fetch("http://127.0.0.1:3500/Restraurant", {
-     method: "POST", 
-     crossDomain: true,
-     mode: "cors",
-  
-     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-     body: JSON.stringify(restaurant)
-     
-       
-   }) .then(response => response.json())
-   .then((data) => {console.log(data)});
+    // Add New restaurant to backend
+
+    fetch("http://127.0.0.1:3500/Restaurant", {
+      method: "POST",
+      crossDomain: true,
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      referrerPolicy: "no-referrer",
+      body: rest,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdate(data);
+        setTimeout(()=>{
+          setUpdate({});
+          navigate("/partner/login")
+        }, 3000)
+      })
+      .catch((error) => console.error(error));
   };
 
   // Handle change in text input field value
 
   const HandleChange = (e) => {
-    console.log(e.target.value);
-
-    setRestraurant({ ...restaurant, [e.target.name]: e.target.value });
+    setRestaurant({ ...restaurant, [e.target.name]: e.target.value });
   };
+
   return (
     <>
-      <div className="relative inset-0 bg-opacity-25 backdrop-blur-sm flex justify-center items-center flex-col z-10 -mt-8 pt-2">
+      <div className="relative inset-0 bg-opacity-25 backdrop-blur-sm flex justify-center items-center flex-col z-10 pt-5">
         <div className="w-28 h-20 self-end">
           <p className="border border-black rounded-3xl p-2 font-semibold hover:bg-zinc-50 cursor-pointer">
             English
           </p>
         </div>
+
         <div className="w-[340px]">
           \{/* Modal Upper Part */}
           <div className="bg-white p-1 rounded-lg flex justify-center items-center flex-col ">
@@ -93,12 +107,12 @@ const Reg_Modal = () => {
 
               <input
                 type="text"
-                name="RestraurantName"
+                name="RestaurantName"
                 required
                 className="text-slate-500 p-4 outline outline-gray-100 hover:outline-slate-400 my-2 rounded w-72"
                 placeholder=" Restaurant Name "
                 value={restaurant.RestaurantName}
-                id="RestraurantName"
+                id="RestaurantName"
                 onChange={HandleChange}
               />
 
@@ -120,7 +134,7 @@ const Reg_Modal = () => {
                 className="text-slate-500 p-4 outline outline-gray-100 hover:outline-slate-400 my-2 rounded w-72"
                 placeholder=" Mobile Number Ex: 3334448888 "
                 value={restaurant.MobileNo}
-                pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                pattern="[0-9]{10}"
                 id="MobileNo"
                 onChange={HandleChange}
               />
@@ -173,10 +187,29 @@ const Reg_Modal = () => {
 
             {/* Redirecting to Signin page */}
             <div className="m-3 py-2 w-72 px-3 bg-white outline outline-pink-50 hover:outline hover:outline-pink-600 hover:bg-pink-100 rounded cursor-pointer">
-              <a href="/" className=" text-pink-700 ">
+              <Link to="/partner/login" className=" text-pink-700 ">
                 Login
-              </a>
+              </Link>
             </div>
+          </div>
+
+          {/* Showing Error or success messages based on sigup info and navigate to login when successful */}
+          <div style={{height: "50px"} }>
+            {update.Error && (
+              <div>
+                <p className="bg-pink-300 text-xs text-black border-b-4 border-pink-700 text-start py-2 px-5">
+                  <strong>Error</strong><br/> {update.Error}
+                </p>
+              </div>
+            )}
+
+            {update.Success && (
+              <div>
+                <p className="bg-green-400 text-xs text-black border-b-4 border-green-700 text-start py-2 px-5">
+                  <strong>Success</strong>:<br/> {update.Success}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
